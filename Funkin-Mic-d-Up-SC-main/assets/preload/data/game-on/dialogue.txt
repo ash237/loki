@@ -1,0 +1,5 @@
+[178[ [179[ [223[ [216[ |Lunchbox| *100* =1= #speech#  <0.08< >4> (0.2( )5) {0.83{ }5} `hand_textbox` ~clickText~
+:bf: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |false| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      This'll be the last game for me. We've been on all night.
+:Loki_Portrait: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |true| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Yeah, Ill try this time.
+:bf: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |false| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Oh, you're on!
+:Loki_Portrait: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |true| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      bet.

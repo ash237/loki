@@ -1,0 +1,6 @@
+[178[ [179[ [223[ [216[ |Lunchbox| *100* =1= #speech#  <0.08< >4> (0.2( )5) {0.83{ }5} `hand_textbox` ~clickText~
+:Loki_Portrait: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |true| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      ..and then he just died in the ally?
+:bf: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |false| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Yeah it was crazy, he turned into a ghost and we rap battled!
+:Loki_Portrait: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |true| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Oh stop making up stories.
+:bf: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |false| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Trust me, its true!
+:Loki_Portrait: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |true| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Whatever you sayy, broski, lets just start the co-op!

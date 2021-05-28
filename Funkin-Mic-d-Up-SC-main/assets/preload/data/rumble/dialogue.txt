@@ -1,0 +1,7 @@
+[178[ [179[ [223[ [216[ |Lunchbox| *100* =1= #speech#  <0.08< >4> (0.2( )5) {0.83{ }5} `hand_textbox` ~clickText~
+:Loki_Portrait: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |true| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Nice! video game music is the best.
+:bf: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |false| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Yup!
+:bf: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |false| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Oh BTW, do you know about that stranger outside the window?
+:Loki_Portrait: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |true| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Thats Rebecca my neighbor and her friend axel, she's kind of weird to be honest.
+:Loki_Portrait: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |true| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      But well it's nice to see her outside again, she was hospitalized a while back.
+:bf: !default! [Pixel Arial 11 Bold[ ]32] *100* =0= +0+ -0- <0< >0> ;0.04; |false| #speech# ^pixelText^ !#FF3F2021! ?#FFD89494? .. ~~      Ah, alright! Let's start the next game.
