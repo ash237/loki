@@ -74,7 +74,26 @@ class Main extends Sprite
 		#end
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+		var ourSource:String = "assets/videos/DO NOT DELETE OR GAME WILL CRASH/dontDelete.webm";
 
+		#if web
+		var str1:String = "HTML CRAP";
+		var vHandler = new VideoHandler();
+		vHandler.init1();
+		vHandler.video.name = str1;
+		addChild(vHandler.video);
+		vHandler.init2();
+		GlobalVideo.setVid(vHandler);
+		vHandler.source(ourSource);
+		#elseif desktop
+		var str1:String = "WEBM SHIT";
+		var webmHandle = new WebmHandler();
+		webmHandle.source(ourSource);
+		webmHandle.makePlayer();
+		webmHandle.webm.name = str1;
+		addChild(webmHandle.webm);
+		GlobalVideo.setWebm(webmHandle);
+		#end
 		#if !mobile
 		fpsCounter = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsCounter);
@@ -91,7 +110,7 @@ class Main extends Sprite
         watermark.x = gameWidth - 10 - watermark.width;
         watermark.y = gameHeight - 10 - watermark.height;
         addChild(watermark);
-		
+
 		MainVariables.Load(); //Funnily enough you can do this. I say this optimizes options better in a way or another.
 	}
 

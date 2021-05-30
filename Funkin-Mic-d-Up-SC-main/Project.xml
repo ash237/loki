@@ -42,11 +42,11 @@
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
-	
+
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
-	
+
 	<section if="PRELOAD_ALL">
 		<library name="songs"    preload="true" />
 		<library name="shared"   preload="true" />
@@ -57,9 +57,8 @@
 		<library name="week4"    preload="true" />
 		<library name="week5"    preload="true" />
 		<library name="week6"    preload="true" />
-		<library name="week7"    preload="true" />
 	</section>
-	
+
 	<section if="NO_PRELOAD_ALL">
 		<library name="songs"    preload="false" />
 		<library name="shared"   preload="false" />
@@ -70,9 +69,8 @@
 		<library name="week4"    preload="false" />
 		<library name="week5"    preload="false" />
 		<library name="week6"    preload="false" />
-		<library name="week7"    preload="false" />
 	</section>
-	
+
 	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
@@ -91,22 +89,18 @@
 	<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week7"    library="week7"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week7"    library="week7"    exclude="*.mp3" unless="web"/>
-  <assets path="assets/videos" include="*.mp3" if="web"/>
-  <assets path="assets/videos" include="*.ogg" unless="web"/>
-	
+
 	<assets path='example_mods' rename='mods' embed='false'/>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
-	
+
 	<!--Allows the License to be in exports and compiles of the code-->
 	<assets path="LICENSE" rename="License so we don't get canceled"/>
-	
+
 	<!-- <template path='mods' /> -->
-	
+
 	<assets path="CHANGELOG.md" rename='changelog.txt'/>
 
-	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
+	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY
 		TO FIX ONE OF THEM, I CONVERTED IT TO OTF. DUNNO IF YOU NEED TO
 		THEN UHHH I USED THE NAME OF THE FONT WITH SETFORMAT() ON THE TEXT!!!
 		NOT USING A DIRECT THING TO THE ASSET!!!
@@ -116,6 +110,9 @@
 
 	<haxelib name="flixel" />
 	<haxedev set='webgl' />
+
+	<haxelib name="actuate" />
+	<haxelib name="extension-webm" if="desktop" />
 
 	<!--In case you want to use the addons package-->
 	<haxelib name="flixel-addons" />
@@ -128,7 +125,6 @@
 	<haxelib name="polymod"/>
 	<haxelib name="discord_rpc" if="desktop"/>
 
-  <haxelib name="actuate"/>
   <!-- <haxelib name="nme"/> ->
 	<!-- if use nme
 	replace from flixel/math/FlxMatrix.hx
@@ -142,7 +138,7 @@
   <!-- <haxelib name="linc_ffmpeg"/>
 	<haxelib name="exception"/>
 	<haxelib name="mediaio"/> -->
-  <!-- haxelib git linc_ffmpeg https://github.com/Dimous/linc_ffmpeg.git 
+  <!-- haxelib git linc_ffmpeg https://github.com/Dimous/linc_ffmpeg.git
 	haxelib git mediaio https://github.com/Dimous/mediaio.git
 	haxelib install exception -->
 
@@ -150,7 +146,7 @@
   <haxelib name="extension-webm" if='desktop'/>
   <!-- <haxelib name="extension-android-media" if='android'/> -->
   <haxedef name="novideo" if="android"/>
-  
+
 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
 
 	<!-- <haxelib name="markdown" /> -->
@@ -194,7 +190,7 @@
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
-	
+
 	<icon path="art/icon16.png" size='16'/>
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
@@ -203,5 +199,5 @@
 
 	<!-- <haxedef name="SKIP_TO_PLAYSTATE" if="debug" /> -->
 	<haxedef name="NG_LOGIN" if="newgrounds" />
-	
+
 </project>

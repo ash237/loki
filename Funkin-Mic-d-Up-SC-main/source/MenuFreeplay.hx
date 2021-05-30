@@ -26,7 +26,7 @@ using StringTools;
 class MenuFreeplay extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
-
+	var fcstars:FlxTypedGroup<FCStar>;
 	var selector:FlxText;
 
 	public static var curSelected:Int = 0;
@@ -57,11 +57,12 @@ class MenuFreeplay extends MusicBeatState
 
 	override function create()
 	{
+
 		FlxG.game.scaleX = 1;
 		FlxG.game.x = 0;
 		FlxG.game.scaleY = 1;
 		FlxG.game.y = 0;
-		
+
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length)
@@ -70,7 +71,7 @@ class MenuFreeplay extends MusicBeatState
 			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1]));
 		}
 
-		/* 
+		/*
 			if (FlxG.sound.music != null)
 			{
 				if (!FlxG.sound.music.playing)
@@ -97,7 +98,7 @@ class MenuFreeplay extends MusicBeatState
 		add(bg);
 		bg.alpha = 0;
 
-		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55FFBDF8, 0xAAFFFDF3], 1, 90, true); 
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55FFBDF8, 0xAAFFFDF3], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
@@ -134,6 +135,8 @@ class MenuFreeplay extends MusicBeatState
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
+		fcstars = new FlxTypedGroup<FCStar>();
+		add(fcstars);
 
 		for (i in 0...songs.length)
 		{
@@ -141,6 +144,11 @@ class MenuFreeplay extends MusicBeatState
 			songText.itemType = "C-Shape";
 			songText.targetY = i;
 			grpSongs.add(songText);
+
+			var star:FCStar = new FCStar();
+			star.sprTracker=songText;
+			star.visible=false;
+			fcstars.add(star);
 
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
@@ -180,10 +188,10 @@ class MenuFreeplay extends MusicBeatState
 		selector.text = ">";
 		// add(selector);
 
-		var swag:Alphabet = new Alphabet(1, 0, "swag");
+		//var swag:Alphabet = new Alphabet(1, 0, "swag");
 
 		// JUST DOIN THIS SHIT FOR TESTING!!!
-		/* 
+		/*
 			var md:String = Markdown.markdownToHtml(Assets.getText('CHANGELOG.md'));
 			var texFel:TextField = new TextField();
 			texFel.width = FlxG.width;
@@ -382,6 +390,12 @@ class MenuFreeplay extends MusicBeatState
 		rank.y = 690 - rank.height;
 		rank.x = disc.x + disc.width - 50;
 		#end
+
+		for(i in 0...fcstars.members.length){
+			var star = fcstars.members[i];
+			star.visible=Highscore.getFC(songs[i].songName, curDifficulty);
+			trace(star.visible);
+		}
 
 		switch (curDifficulty)
 		{

@@ -46,7 +46,7 @@ class Substate_ChartType extends MusicBeatSubstate
         add(blackBarThingie);
         blackBarThingie.scrollFactor.set();
 
-        gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55FF70E7, 0xAA94EBFF], 1, 90, true); 
+        gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55FF70E7, 0xAA94EBFF], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
@@ -60,7 +60,7 @@ class Substate_ChartType extends MusicBeatSubstate
 
         menuItems = new FlxTypedGroup<FlxSprite>();
         add(menuItems);
-        
+
 		var tex = Paths.getSparrowAtlas('chartTypes');
 
 		for (i in 0...optionShit.length)
@@ -109,7 +109,7 @@ class Substate_ChartType extends MusicBeatSubstate
                 FlxG.sound.play(Paths.sound('scrollMenu'), _variables.svolume/100);
                 changeItem(-1);
             }
-    
+
             if (controls.DOWN_P)
             {
                 FlxG.sound.play(Paths.sound('scrollMenu'), _variables.svolume/100);
@@ -121,7 +121,7 @@ class Substate_ChartType extends MusicBeatSubstate
                     FlxG.resetState();
                     selectedSomethin = true;
                 }
-        
+
             if (controls.ACCEPT)
             {
                 selectedSomethin = true;
@@ -165,7 +165,14 @@ class Substate_ChartType extends MusicBeatSubstate
 				{
                     FlxG.sound.music.stop();
 					boombox.visible = false;
-					LoadingState.loadAndSwitchState(new PlayState(), true);
+          if(PlayState.storyPlaylist[0]=='Co-op'){
+            FlxG.switchState(new VideoState('assets/videos/CoopIntro.webm', function(){
+              LoadingState.loadAndSwitchState(new PlayState(), true);
+            }));
+          }else{
+            LoadingState.loadAndSwitchState(new PlayState(), true);
+          }
+
 				});
             }
         }
@@ -186,7 +193,7 @@ class Substate_ChartType extends MusicBeatSubstate
     function changeItem(huh:Int = 0)
         {
             curSelected += huh;
-        
+
             if (curSelected >= menuItems.length)
                 curSelected = 0;
             if (curSelected < 0)
@@ -195,12 +202,12 @@ class Substate_ChartType extends MusicBeatSubstate
             menuItems.forEach(function(spr:FlxSprite)
                 {
                     spr.animation.play('idle');
-        
+
                     if (spr.ID == curSelected)
                     {
-                        spr.animation.play('select'); 
+                        spr.animation.play('select');
                     }
-            
+
                     spr.updateHitbox();
                 });
         }
