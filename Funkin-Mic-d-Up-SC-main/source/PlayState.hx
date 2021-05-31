@@ -321,10 +321,6 @@ class PlayState extends MusicBeatState
 				storyDifficultyText = "Normal";
 			case 3:
 				storyDifficultyText = "Hard";
-			case 4:
-				storyDifficultyText = "Expert";
-			case 5:
-				storyDifficultyText = "Insane";
 		}
 
 		iconRPC = SONG.player2;
@@ -2873,12 +2869,6 @@ class PlayState extends MusicBeatState
 							if (difficultyPlaylist[0].contains('3'))
 								difficulty = '-hard';
 
-							if (difficultyPlaylist[0].contains('4'))
-								difficulty = '-expert';
-
-							if (difficultyPlaylist[0].contains('5'))
-								difficulty = '-insane';
-
 							storyDifficulty = Std.parseInt(difficultyPlaylist[0]);
 
 							trace('LOADING NEXT SONG');
@@ -2924,10 +2914,6 @@ class PlayState extends MusicBeatState
 									diffic = '-easy';
 								case 3:
 									diffic = '-hard';
-								case 4:
-									diffic = '-expert';
-								case 5:
-									diffic = '-insane';
 							}
 
 							PlayState.SONG = Song.loadFromJson(SONG.song.toLowerCase() + diffic, SONG.song.toLowerCase());

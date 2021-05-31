@@ -71,7 +71,7 @@ class Endless_Substate extends MusicBeatSubstate
 
         menuItems = new FlxTypedGroup<FlxSprite>();
         add(menuItems);
-        
+
 		var tex = Paths.getSparrowAtlas('Endless_Buttons');
 
         for (i in 0...optionShit.length)
@@ -86,7 +86,7 @@ class Endless_Substate extends MusicBeatSubstate
                 menuItem.antialiasing = true;
                 menuItem.scrollFactor.x = 0;
                 menuItem.scrollFactor.y = 0;
-    
+
                 menuItem.y = 40 +  i * 90;
                 menuItem.x = 40;
                 menuItem.scale.set(0,0);
@@ -99,8 +99,6 @@ class Endless_Substate extends MusicBeatSubstate
         sprDifficulty.animation.addByPrefix('easy', 'EASY');
         sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
         sprDifficulty.animation.addByPrefix('hard', 'HARD');
-        sprDifficulty.animation.addByPrefix('expert', 'EXPERT');
-        sprDifficulty.animation.addByPrefix('insane', 'INSANE');
         sprDifficulty.animation.play('easy');
         sprDifficulty.x = 900;
         sprDifficulty.y = 151;
@@ -153,13 +151,13 @@ class Endless_Substate extends MusicBeatSubstate
                     FlxG.sound.play(Paths.sound('scrollMenu'), _variables.svolume/100);
                     changeItem(-1);
                 }
-        
+
             if (controls.DOWN_P)
                 {
                     FlxG.sound.play(Paths.sound('scrollMenu'), _variables.svolume/100);
                     changeItem(1);
                 }
-        
+
             if (controls.LEFT_P)
                 switch (optionShit[curSelected])
                 {
@@ -203,7 +201,7 @@ class Endless_Substate extends MusicBeatSubstate
                             MenuEndless.substated = false;
                         });
                 }
-        
+
             if (controls.ACCEPT)
             {
                 #if desktop
@@ -235,7 +233,7 @@ class Endless_Substate extends MusicBeatSubstate
                     spr.x = FlxMath.lerp(spr.x, 20, camLerp/(_variables.fps/60));
                     spr.y = 110 +  spr.ID * 120;
                     spr.scale.set(FlxMath.lerp(spr.scale.x, 0.5, camLerp/(_variables.fps/60)), FlxMath.lerp(spr.scale.y, 0.5, 0.4/(_variables.fps/60)));
-    
+
                     if (spr.ID == curSelected)
                     {
                         spr.scale.set(FlxMath.lerp(spr.scale.x, 1.3, camLerp/(_variables.fps/60)), FlxMath.lerp(spr.scale.y, 1.3, 0.4/(_variables.fps/60)));
@@ -253,7 +251,7 @@ class Endless_Substate extends MusicBeatSubstate
     function changeItem(huh:Int = 0)
         {
             curSelected += huh;
-        
+
             if (curSelected >= menuItems.length)
                 curSelected = 0;
             if (curSelected < 0)
@@ -263,12 +261,12 @@ class Endless_Substate extends MusicBeatSubstate
     function changeDiff(change:Int = 0)
         {
             curDifficulty += change;
-        
-            if (curDifficulty < 0)
-                curDifficulty = 5;
-            if (curDifficulty > 5)
-                curDifficulty = 0;
-        
+
+            if (curDifficulty < 1)
+                curDifficulty = 3;
+            if (curDifficulty > 3)
+                curDifficulty = 1;
+
             switch (curDifficulty)
                 {
                     case 0:
@@ -279,21 +277,17 @@ class Endless_Substate extends MusicBeatSubstate
                         sprDifficulty.animation.play('normal');
                     case 3:
                         sprDifficulty.animation.play('hard');
-                    case 4:
-                        sprDifficulty.animation.play('expert');
-                    case 5:
-                        sprDifficulty.animation.play('insane');
                 }
-        
+
             sprDifficulty.alpha = 0;
-        
+
             sprDifficulty.y = 101;
             FlxTween.tween(sprDifficulty, {y: 151, alpha: 1}, 0.04);
 
             updateSong();
             loadCurrent(song, curDifficulty);
         }
-    
+
     function updateSong()
     {
         var diffic:String = "";
@@ -306,12 +300,8 @@ class Endless_Substate extends MusicBeatSubstate
 				diffic = '-easy';
 			case 3:
 				diffic = '-hard';
-		    case 4:
-				diffic = '-expert';
-		    case 5:
-			    diffic = '-insane';
 		}
-        
+
         PlayState.SONG = Song.loadFromJson(song+diffic, song);
         _endless.speed = PlayState.SONG.speed;
 

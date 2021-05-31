@@ -160,10 +160,6 @@ class Marathon_Substate extends MusicBeatSubstate
 			            		diffic = '-easy';
 			            	case '3':
 			            		diffic = '-hard';
-			            	case '4':
-			            		diffic = '-expert';
-			            	case '5':
-			            		diffic = '-insane';
 			            }
                         PlayState.storyDifficulty = Std.parseInt(PlayState.difficultyPlaylist[0]);
                         PlayState.gameplayArea = "Marathon";

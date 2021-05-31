@@ -162,8 +162,6 @@ class MenuFreeplay extends MusicBeatState
 		sprDifficulty.animation.addByPrefix('easy', 'EASY');
 		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
 		sprDifficulty.animation.addByPrefix('hard', 'HARD');
-		sprDifficulty.animation.addByPrefix('expert', 'EXPERT');
-		sprDifficulty.animation.addByPrefix('insane', 'INSANE');
 		sprDifficulty.animation.play('easy');
 		sprDifficulty.screenCenter(X);
 		sprDifficulty.y = FlxG.height - sprDifficulty.height - 8;
@@ -376,10 +374,10 @@ class MenuFreeplay extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = 5;
-		if (curDifficulty > 5)
-			curDifficulty = 0;
+		if (curDifficulty < 1)
+			curDifficulty = 3;
+		if (curDifficulty > 3)
+			curDifficulty = 1;
 
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
@@ -407,10 +405,6 @@ class MenuFreeplay extends MusicBeatState
 				sprDifficulty.animation.play('normal');
 			case 3:
 				sprDifficulty.animation.play('hard');
-			case 4:
-				sprDifficulty.animation.play('expert');
-			case 5:
-				sprDifficulty.animation.play('insane');
 		}
 
 		sprDifficulty.alpha = 0;

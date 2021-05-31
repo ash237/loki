@@ -74,7 +74,7 @@ class Marathon_Edit extends MusicBeatSubstate
                 FlxG.sound.play(Paths.sound('scrollMenu'), _variables.svolume/100);
                 changeSelection(-1);
             }
-    
+
             if (controls.DOWN_P)
             {
                 FlxG.sound.play(Paths.sound('scrollMenu'), _variables.svolume/100);
@@ -96,7 +96,7 @@ class Marathon_Edit extends MusicBeatSubstate
                             FlxG.state.openSubState(new Marathon_Substate());
                         });
                 }
-        
+
             if (controls.ACCEPT)
             {
                 PlayState.storyPlaylist.remove(PlayState.storyPlaylist[curSelected]);
@@ -109,34 +109,34 @@ class Marathon_Edit extends MusicBeatSubstate
                 grpSongs.clear();
 
                 updateText();
-                
+
             }
         }
     }
 
     function changeSelection(change:Int = 0)
         {
-    
+
             // NGio.logEvent('Fresh');
             FlxG.sound.play(Paths.sound('scrollMenu'), 0.4*_variables.svolume/100);
-    
+
             curSelected += change;
-    
+
             if (curSelected < 0)
                 curSelected = PlayState.storyPlaylist.length - 1;
             if (curSelected >= PlayState.storyPlaylist.length)
                 curSelected = 0;
-    
+
             var bullShit:Int = 0;
-    
+
             for (item in grpSongs.members)
             {
                 item.targetY = bullShit - curSelected;
                 bullShit++;
-    
+
                 item.alpha = 0.6;
                 // item.setGraphicSize(Std.int(item.width * 0.8));
-    
+
                 if (item.targetY == 0)
                 {
                     item.alpha = 1;
@@ -149,11 +149,11 @@ class Marathon_Edit extends MusicBeatSubstate
     {
         for (i in 0...PlayState.storyPlaylist.length)
             {
-    
+
                 var songText:Alphabet = new Alphabet(0, (70 * i) + 30, PlayState.storyPlaylist[i], true, false);
-    
+
                 var sprDifficulty:FlxSprite;
-    
+
                 var diffTex = Paths.getSparrowAtlas('difficulties');
                 sprDifficulty = new FlxSprite(0, 50);
                 sprDifficulty.frames = diffTex;
@@ -161,10 +161,8 @@ class Marathon_Edit extends MusicBeatSubstate
                 sprDifficulty.animation.addByPrefix('easy', 'EASY');
                 sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
                 sprDifficulty.animation.addByPrefix('hard', 'HARD');
-                sprDifficulty.animation.addByPrefix('expert', 'EXPERT');
-                sprDifficulty.animation.addByPrefix('insane', 'INSANE');
                 sprDifficulty.animation.play('easy');
-    
+
                 switch (PlayState.difficultyPlaylist[i])
                 {
                     case '0':
@@ -175,14 +173,10 @@ class Marathon_Edit extends MusicBeatSubstate
                         sprDifficulty.animation.play('normal');
                     case '3':
                         sprDifficulty.animation.play('hard');
-                    case '4':
-                        sprDifficulty.animation.play('expert');
-                    case '5':
-                        sprDifficulty.animation.play('insane');
                 }
-    
+
                 songText.add(sprDifficulty);
-    
+
                 songText.itemType = "Vertical";
                 songText.targetY = i;
                 songText.targetX = -9;
@@ -195,15 +189,15 @@ class Marathon_Edit extends MusicBeatSubstate
             curSelected = 0;
 
         var bullShit:Int = 0;
-    
+
             for (item in grpSongs.members)
             {
                 item.targetY = bullShit - curSelected;
                 bullShit++;
-    
+
                 item.alpha = 0.6;
                 // item.setGraphicSize(Std.int(item.width * 0.8));
-    
+
                 if (item.targetY == 0)
                 {
                     item.alpha = 1;

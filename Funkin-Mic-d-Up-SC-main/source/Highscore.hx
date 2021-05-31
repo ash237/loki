@@ -130,10 +130,6 @@ class Highscore
 			daSong += '-easy';
 		else if (diff == 3)
 			daSong += '-hard';
-		else if (diff == 4)
-			daSong += '-expert';
-		else if (diff == 5)
-			daSong += '-insane';
 
 		return daSong;
 	}

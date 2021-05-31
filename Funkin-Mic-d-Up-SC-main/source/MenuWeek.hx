@@ -195,8 +195,6 @@ class MenuWeek extends MusicBeatState
 		sprDifficulty.animation.addByPrefix('easy', 'EASY');
 		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
 		sprDifficulty.animation.addByPrefix('hard', 'HARD');
-		sprDifficulty.animation.addByPrefix('expert', 'EXPERT');
-		sprDifficulty.animation.addByPrefix('insane', 'INSANE');
 		sprDifficulty.animation.play('easy');
 		changeDifficulty();
 
@@ -342,10 +340,6 @@ class MenuWeek extends MusicBeatState
 					diffic = '-easy';
 				case 3:
 					diffic = '-hard';
-				case 4:
-					diffic = '-expert';
-				case 5:
-					diffic = '-insane';
 			}
 
 			PlayState.storyDifficulty = curDifficulty;
@@ -391,10 +385,10 @@ class MenuWeek extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = 5;
-		if (curDifficulty > 5)
-			curDifficulty = 0;
+		if (curDifficulty < 1)
+			curDifficulty = 3;
+		if (curDifficulty > 3)
+			curDifficulty = 1;
 
 		updateRank();
 
@@ -410,10 +404,6 @@ class MenuWeek extends MusicBeatState
 				sprDifficulty.animation.play('normal');
 			case 3:
 				sprDifficulty.animation.play('hard');
-			case 4:
-				sprDifficulty.animation.play('expert');
-			case 5:
-				sprDifficulty.animation.play('insane');
 		}
 
 		sprDifficulty.alpha = 0;

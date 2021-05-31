@@ -138,11 +138,6 @@ class RankingSubstate extends MusicBeatSubstate
 						if (PlayState.storyDifficulty == 3)
 							difficulty = '-hard';
 
-						if (PlayState.storyDifficulty == 4)
-							difficulty = '-expert';
-
-						if (PlayState.storyDifficulty == 5)
-							difficulty = '-insane';
 
 						trace('LOADING NEXT SONG');
 						trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);
@@ -154,7 +149,7 @@ class RankingSubstate extends MusicBeatSubstate
 					}
 				case "Freeplay":
 					FlxG.switchState(new MenuFreeplay());
-			}	
+			}
 		}
 	}
 
@@ -175,9 +170,9 @@ class RankingSubstate extends MusicBeatSubstate
 				comboRank = "FC";
 			else if (PlayState.misses < 10) // Single Digit Combo Breaks
 				comboRank = "SDCB";
-	
+
 			// WIFE TIME :)))) (based on Wife3)
-	
+
 			var wifeConditions:Array<Bool> = [
 				PlayState.accuracy >= 99.9935, // P
 				PlayState.accuracy >= 99.980, // X
@@ -196,7 +191,7 @@ class RankingSubstate extends MusicBeatSubstate
 				PlayState.accuracy >= 60, // D
 				PlayState.accuracy < 60 // E
 			];
-	
+
 			for(i in 0...wifeConditions.length)
 			{
 				var b = wifeConditions[i];

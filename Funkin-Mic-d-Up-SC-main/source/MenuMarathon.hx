@@ -93,7 +93,7 @@ class MenuMarathon extends MusicBeatState
 		bg.antialiasing = true;
 		add(bg);
 
-		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55FFFFFF, 0xAAFFFFFF], 1, 90, true); 
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55FFFFFF, 0xAAFFFFFF], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
@@ -110,7 +110,7 @@ class MenuMarathon extends MusicBeatState
                 songText.itemType = "Vertical";
                 songText.targetY = i;
                 grpSongs.add(songText);
-    
+
                 // songText.x += 40;
                 // DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
                 // songText.screenCenter(X);
@@ -137,8 +137,6 @@ class MenuMarathon extends MusicBeatState
 		sprDifficulty.animation.addByPrefix('easy', 'EASY');
 		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
 		sprDifficulty.animation.addByPrefix('hard', 'HARD');
-		sprDifficulty.animation.addByPrefix('expert', 'EXPERT');
-		sprDifficulty.animation.addByPrefix('insane', 'INSANE');
 		sprDifficulty.animation.play('easy');
 		sprDifficulty.screenCenter(X);
 		sprDifficulty.y = FlxG.height - sprDifficulty.height - 8;
@@ -211,16 +209,16 @@ class MenuMarathon extends MusicBeatState
                     changeSelection(-1);
                 if (downP)
                     changeSelection(1);
-    
+
                 if (controls.LEFT_P)
                     changeDiff(-1);
                 if (controls.RIGHT_P)
                     changeDiff(1);
-    
+
                 if (back)
                 {
                     substated = true;
-    
+
                     FlxG.sound.play(Paths.sound('cancelMenu'), _variables.svolume/100);
 
                     FlxG.state.openSubState(new Marathon_Substate());
@@ -253,16 +251,16 @@ class MenuMarathon extends MusicBeatState
     function changeDiff(change:Int = 0)
         {
             curDifficulty += change;
-    
-            if (curDifficulty < 0)
-                curDifficulty = 5;
-            if (curDifficulty > 5)
-                curDifficulty = 0;
-    
+
+            if (curDifficulty < 1)
+                curDifficulty = 3;
+            if (curDifficulty > 3)
+                curDifficulty = 1;
+
             #if !switch
                 intendedScore = Std.int(FlxG.save.data.marathonScore);
             #end
-    
+
             switch (curDifficulty)
             {
                 case 0:
@@ -273,48 +271,44 @@ class MenuMarathon extends MusicBeatState
                     sprDifficulty.animation.play('normal');
                 case 3:
                     sprDifficulty.animation.play('hard');
-                case 4:
-                    sprDifficulty.animation.play('expert');
-                case 5:
-                    sprDifficulty.animation.play('insane');
             }
-    
+
             sprDifficulty.alpha = 0;
-    
+
             sprDifficulty.y = FlxG.height - sprDifficulty.height - 38;
             FlxTween.tween(sprDifficulty, {y: FlxG.height - sprDifficulty.height - 8, alpha: 1}, 0.04);
             sprDifficulty.x = FlxG.width/2 - sprDifficulty.width/2;
         }
-    
+
         function changeSelection(change:Int = 0)
         {
-    
+
             // NGio.logEvent('Fresh');
             FlxG.sound.play(Paths.sound('scrollMenu'), 0.4*_variables.svolume/100);
-    
+
             curSelected += change;
-    
+
             if (curSelected < 0)
                 curSelected = songs.length - 1;
             if (curSelected >= songs.length)
                 curSelected = 0;
-    
+
             // selector.y = (70 * curSelected) + 30;
-    
+
             #if !switch
                 intendedScore = Std.int(FlxG.save.data.marathonScore);
             #end
-    
+
             var bullShit:Int = 0;
-    
+
             for (item in grpSongs.members)
             {
                 item.targetY = bullShit - curSelected;
                 bullShit++;
-    
+
                 item.alpha = 0.6;
                 // item.setGraphicSize(Std.int(item.width * 0.8));
-    
+
                 if (item.targetY == 0)
                 {
                     item.alpha = 1;
@@ -359,7 +353,7 @@ class MenuMarathon extends MusicBeatState
         {
             var data:String = File.getContent('presets/marathon/'+input);
             _marathon = Json.parse(data);
-            
+
             PlayState.difficultyPlaylist = _marathon.songDifficulties;
             PlayState.storyPlaylist = _marathon.songNames;
 

@@ -134,13 +134,17 @@ class TitleState extends MusicBeatState
 		logoBl.animation.play('bump');
 		logoBl.scale.set(0.6,0.6);
 		logoBl.updateHitbox();
+		logoBl.offset.x = 20;
+		logoBl.offset.y = 20;
+		logoBl.setGraphicSize(Std.int(logoBl.width*1.25) );
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
 		gfDance = new FlxSprite(FlxG.width * 0.35, FlxG.height * 1.2);
 		gfDance.frames = Paths.getSparrowAtlas('gfDanceTitle');
-		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+		gfDance.animation.addByPrefix('idle', 'GF Dancing Beat', 24, false);
+		gfDance.animation.play("idle",true);
+		gfDance.offset.x = gfDance.width/2;
 		gfDance.antialiasing = true;
 		add(gfDance);
 
@@ -159,7 +163,7 @@ class TitleState extends MusicBeatState
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		credGroup.add(blackScreen);
 
-		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x553D0468, 0xAABF1943], 1, 90, true); 
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x553D0468, 0xAABF1943], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		gradientBar.scale.y = 0;
 		gradientBar.updateHitbox();
@@ -254,7 +258,7 @@ class TitleState extends MusicBeatState
 		gradientBar.scale.y += Math.sin(Timer/10)*0.001/(_variables.fps/60);
 		gradientBar.updateHitbox();
 		gradientBar.y = FlxG.height - gradientBar.height;
-		//gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), Math.round(gradientBar.height), [0x00ff0000, 0xaaAE59E4, 0xff19ECFF], 1, 90, true); 
+		//gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), Math.round(gradientBar.height), [0x00ff0000, 0xaaAE59E4, 0xff19ECFF], 1, 90, true);
 
 		if (skippedIntro)
 			logoBl.angle = Math.sin(Timer/270) * 5/(_variables.fps/60);
@@ -360,12 +364,7 @@ class TitleState extends MusicBeatState
 		super.beatHit();
 
 		logoBl.animation.play('bump');
-		danceLeft = !danceLeft;
-
-		if (danceLeft)
-			gfDance.animation.play('danceRight');
-		else
-			gfDance.animation.play('danceLeft');
+		gfDance.animation.play("idle",true);
 
 		FlxG.log.add(curBeat);
 
