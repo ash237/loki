@@ -6,16 +6,18 @@ class Highscore
 {
 	#if (haxe >= "4.0.0")
 	public static var songScores:Map<String, Int> = new Map();
+	public static var songFCs:Map<String, Bool> = new Map();
 	public static var endlessScores:Map<String, Int> = new Map();
 	public static var songRanks:Map<String, Int> = new Map();
 	#else
 	public static var songScores:Map<String, Int> = new Map<String, Int>();
+	public static var songFCs:Map<String, Bool> = new Map<String, Bool>();
 	public static var endlessScores:Map<String, Int> = new Map<String, Int>();
 	public static var songRanks:Map<String, Int> = new Map<String, Int>();
 	#end
 
 
-	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0):Void
+	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0, ?fc:Bool=false):Void
 	{
 		var daSong:String = formatSong(song, diff);
 
@@ -27,11 +29,11 @@ class Highscore
 
 		if (songScores.exists(daSong))
 		{
-			if (songScores.get(daSong) < score)
-				setScore(daSong, score);
+			if (songScores.get(daSong) < score || songFCs.get(daSong)!=fc )
+				setScore(daSong, score, fc);
 		}
 		else
-			setScore(daSong, score);
+			setScore(daSong, score, fc);
 	}
 
 	public static function saveRank(song:String, score:Int = 0, ?diff:Int = 0):Void
@@ -47,7 +49,7 @@ class Highscore
 			setRank(daSong, score);
 	}
 
-	public static function saveWeekScore(week:Int = 1, score:Int = 0, ?diff:Int = 0):Void
+	public static function saveWeekScore(week:Int = 1, score:Int = 0, ?diff:Int = 0, ?fc:Bool=false):Void
 	{
 
 		#if !switch
@@ -59,11 +61,11 @@ class Highscore
 
 		if (songScores.exists(daWeek))
 		{
-			if (songScores.get(daWeek) < score)
-				setScore(daWeek, score);
+			if (songScores.get(daWeek) < score || songFCs.get(daWeek)!=fc)
+				setScore(daWeek, score, fc);
 		}
 		else
-			setScore(daWeek, score);
+			setScore(daWeek, score, fc);
 	}
 
 	public static function saveMarathonScore(score:Int = 0):Void
@@ -91,11 +93,14 @@ class Highscore
 	/**
 	 * YOU SHOULD FORMAT SONG WITH formatSong() BEFORE TOSSING IN SONG VARIABLE
 	 */
-	static function setScore(song:String, score:Int):Void
+	static function setScore(song:String, score:Int, fc:Bool):Void
 	{
 		// Reminder that I don't need to format this song, it should come formatted!
 		songScores.set(song, score);
+		songFCs.set(song,fc);
 		FlxG.save.data.songScores = songScores;
+		FlxG.save.data.songFCs = songFCs;
+
 		FlxG.save.flush();
 	}
 
@@ -125,10 +130,6 @@ class Highscore
 			daSong += '-easy';
 		else if (diff == 3)
 			daSong += '-hard';
-		else if (diff == 4)
-			daSong += '-expert';
-		else if (diff == 5)
-			daSong += '-insane';
 
 		return daSong;
 	}
@@ -136,16 +137,24 @@ class Highscore
 	public static function getScore(song:String, diff:Int):Int
 	{
 		if (!songScores.exists(formatSong(song, diff)))
-			setScore(formatSong(song, diff), 0);
+			setScore(formatSong(song, diff), 0, false);
 
 		return songScores.get(formatSong(song, diff));
+	}
+
+	public static function getFC(song:String, diff:Int):Bool
+	{
+		if (!songFCs.exists(formatSong(song, diff)))
+			setScore(formatSong(song, diff), 0, false);
+
+		return songFCs.get(formatSong(song, diff));
 	}
 
 	public static function getEndless(song:String):Int
 		{
 			if (!endlessScores.exists(song))
 				setEndless((song), 0);
-	
+
 			return endlessScores.get(song);
 		}
 
@@ -160,9 +169,17 @@ class Highscore
 	public static function getWeekScore(week:Int, diff:Int):Int
 	{
 		if (!songScores.exists(formatSong('week' + week, diff)))
-			setScore(formatSong('week' + week, diff), 0);
+			setScore(formatSong('week' + week, diff), 0, false);
 
 		return songScores.get(formatSong('week' + week, diff));
+	}
+
+	public static function getWeekFC(week:Int, diff:Int):Bool
+	{
+		if (!songFCs.exists(formatSong('week' + week, diff)))
+			setScore(formatSong('week' + week, diff), 0, false);
+
+		return songFCs.get(formatSong('week' + week, diff));
 	}
 
 	public static function load():Void
@@ -170,6 +187,10 @@ class Highscore
 		if (FlxG.save.data.songScores != null)
 		{
 			songScores = FlxG.save.data.songScores;
+		}
+		if (FlxG.save.data.songFCs != null)
+		{
+			songFCs = FlxG.save.data.songFCs;
 		}
 		if (FlxG.save.data.endlessScores != null)
 		{
