@@ -36,7 +36,7 @@ class MenuWeek extends MusicBeatState
 		['Senpai', 'Roses', 'Thorns'],
 		['Co-op', 'Rumble', 'All-nighter', 'Game-on']
 	];
-	
+
 	var curWeekData:Array<Dynamic> = [];
 
 	public static var curDifficulty:Int = 2;
@@ -72,6 +72,7 @@ class MenuWeek extends MusicBeatState
 	var txtTracklist:FlxText;
 
 	var grpWeekText:FlxTypedGroup<MenuItem>;
+	var fcstars:FlxTypedGroup<FCStar>;
 
 	var sprDifficulty:FlxSprite;
 
@@ -123,7 +124,7 @@ class MenuWeek extends MusicBeatState
 		bg.antialiasing = true;
 		add(bg);
 
-		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55F8FFAB, 0xAAFFDEF2], 1, 90, true); 
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00ff0000, 0x55F8FFAB, 0xAAFFDEF2], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		add(gradientBar);
 		gradientBar.scrollFactor.set(0, 0);
@@ -134,15 +135,23 @@ class MenuWeek extends MusicBeatState
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
 
+		fcstars = new FlxTypedGroup<FCStar>();
+		add(fcstars);
+
 		for (i in 0...weekData.length)
 			{
 				var weekThing:MenuItem = new MenuItem(0, 40, i);
 				weekThing.y += ((weekThing.height + 20) * i);
 				weekThing.targetY = i;
 				grpWeekText.add(weekThing);
-	
+
 				weekThing.screenCenter(X);
 				weekThing.antialiasing = true;
+
+				var star:FCStar = new FCStar();
+				star.sprTracker=weekThing;
+				star.visible=false;
+				fcstars.add(star);
 				// weekThing.updateHitbox();
 			}
 
@@ -186,8 +195,6 @@ class MenuWeek extends MusicBeatState
 		sprDifficulty.animation.addByPrefix('easy', 'EASY');
 		sprDifficulty.animation.addByPrefix('normal', 'NORMAL');
 		sprDifficulty.animation.addByPrefix('hard', 'HARD');
-		sprDifficulty.animation.addByPrefix('expert', 'EXPERT');
-		sprDifficulty.animation.addByPrefix('insane', 'INSANE');
 		sprDifficulty.animation.play('easy');
 		changeDifficulty();
 
@@ -333,10 +340,6 @@ class MenuWeek extends MusicBeatState
 					diffic = '-easy';
 				case 3:
 					diffic = '-hard';
-				case 4:
-					diffic = '-expert';
-				case 5:
-					diffic = '-insane';
 			}
 
 			PlayState.storyDifficulty = curDifficulty;
@@ -344,6 +347,7 @@ class MenuWeek extends MusicBeatState
 			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + diffic, PlayState.storyPlaylist[0].toLowerCase());
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
+			PlayState.campaignMisses = 0;
 
 			FlxTween.tween(bg, { alpha:0}, 0.6, { ease: FlxEase.quartInOut});
 			FlxTween.tween(checker, { alpha:0}, 0.6, { ease: FlxEase.quartInOut});
@@ -381,10 +385,10 @@ class MenuWeek extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curDifficulty < 0)
-			curDifficulty = 5;
-		if (curDifficulty > 5)
-			curDifficulty = 0;
+		if (curDifficulty < 1)
+			curDifficulty = 3;
+		if (curDifficulty > 3)
+			curDifficulty = 1;
 
 		updateRank();
 
@@ -400,10 +404,6 @@ class MenuWeek extends MusicBeatState
 				sprDifficulty.animation.play('normal');
 			case 3:
 				sprDifficulty.animation.play('hard');
-			case 4:
-				sprDifficulty.animation.play('expert');
-			case 5:
-				sprDifficulty.animation.play('insane');
 		}
 
 		sprDifficulty.alpha = 0;
@@ -411,7 +411,14 @@ class MenuWeek extends MusicBeatState
 		// USING THESE WEIRD VALUES SO THAT IT DOESNT FLOAT UP
 		sprDifficulty.y = txtWeekTitle.y + 5 ;
 		intendedScore = Highscore.getWeekScore(curWeek, curDifficulty);
-
+		for(i in 0...fcstars.members.length){
+			var star = fcstars.members[i];
+			if(Highscore.getWeekFC(i,curDifficulty)){
+				star.visible=true;
+			}else{
+				star.visible=false;
+			}
+		}
 		#if !switch
 		intendedScore = Highscore.getWeekScore(curWeek, curDifficulty);
 		#end
@@ -521,7 +528,7 @@ class MenuWeek extends MusicBeatState
 				rank.antialiasing = true;
 				rank.scrollFactor.set();
 				rank.y = 30 + i*65;
-					
+
 				ranks.add(rank);
 			}
 	}
